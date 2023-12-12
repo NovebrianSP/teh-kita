@@ -6,18 +6,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Landing Page</title>
 
-    <link href="<?php echo base_url('asset/vendor/fontawesome-free/css/all.min.css') ?>" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <link rel="stylesheet" href="<?php echo base_url('asset/css/bootstrap.css') ?>">
 
-    <link href="<?php echo base_url('asset/css/sb-admin-2.min.css') ?>" rel="stylesheet">
-    <link rel="stylesheet" href="<?php echo base_url('asset/css/style-custom.css') ?>">
+    <style>
+        .navbar-brand img {
+            background-color: #fff;
+            padding: 5px;
+            border-radius: 50%;
+        }
+
+        .bg-custom {
+            background-color: #79AC78;
+        }
+
+        body {
+            background-image: url('<?php echo base_url('asset/images/bg_gray.jpg') ?>');
+            background-size: cover;
+        }
+
+        .heading-custom {
+            padding-top: 1rem;
+        }
+    </style>
 </head>
 
-<body class="bg-gradient-custom-1">
-
-    <div class="container-fluid">
-        <div class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <h1 class="h4 navbar-brand">Teh.Kita</h1>
+<body class="container-fluid d-flex flex-column min-vh-100">
+    <nav class="navbar navbar-expand-lg navbar-light bg-custom row">
+        <div class="container-fluid">
+            <a class="navbar-brand disabled-link">
+                <img src="<?php echo base_url('asset/images/teh_kita.png') ?>" alt="logo" width="50" height="50">
+                Teh.Kita
+            </a>
 
             <div class="collapse navbar-collapse">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
@@ -33,9 +52,16 @@
                         <a href="<?php echo site_url('Tehkita/datajual') ?>" class="nav-link">Pendapatan Hari Ini</a>
                     </li>
                 </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?php echo site_url('Tehkita/logout'); ?>">Logout</a>
+                    </li>
+                </ul>
             </div>
         </div>
+    </nav>
 
+    <div class="container-fluid">
         <div class="main">
             <?php
             $menu = $this->db->query("select * from pesanan")->result_array();
@@ -50,7 +76,6 @@
                     <div class="card o-hidden border-0 my-5">
                         <div class="card-body p-0">
                             <div class="row">
-
                                 <?php
                                 $counter = 0;
                                 $no = 1;
@@ -62,8 +87,16 @@
                                                     <h4><?php echo $no . '. ' . $row['nama_menu'] ?></h4>
                                                     <h5>Jumlah Pesanan : <?php echo $row['jumlah'] ?></h5>
                                                     <p class="indent">Tanggal Pesanan : <?php echo $row['waktu'] . " atas nama " . $row['nama_pelanggan'] ?></p>
-                                                    <input class="btn btn-success btn-user btn-block" type="submit" value="Terima">
-                                                    <input class="btn btn-danger btn-user btn-block" type="reset" value="Tolak Pesanan">
+
+                                                    <div class="row">
+                                                        <form class="col-6" action="<?php echo site_url('Tehkita/' . $row['id_pesanan']) ?>">
+                                                            <input class="btn btn-success btn-user btn-block" type="submit" value="Terima Pesanan">
+                                                        </form>
+
+                                                        <form class="col-6" action="<?php echo site_url('Tehkita/tolak_pesanan' . $row['id_pesanan']) ?>">
+                                                            <input class="btn btn-danger btn-user btn-block" type="submit" value="Tolak Pesanan">
+                                                        </form>
+                                                    </div>
                                                 </center>
                                             </div>
                                         </div>
@@ -74,8 +107,16 @@
                                                     <h4><?php echo $no . '. ' . $row['nama_menu'] ?></h4>
                                                     <h5>Jumlah Pesanan : <?php echo $row['jumlah'] ?></h5>
                                                     <p class="indent">Tanggal Pesanan : <?php echo $row['waktu'] . " atas nama " . $row['nama_pelanggan'] ?></p>
-                                                    <input class="btn btn-success btn-user btn-block" type="submit" value="Terima">
-                                                    <input class="btn btn-danger btn-user btn-block" type="reset" value="Tolak Pesanan">
+
+                                                    <div class="row">
+                                                        <form class="col-6" action="<?php echo site_url('Tehkita/' . $row['id_pesanan']) ?>">
+                                                            <input class="btn btn-success btn-user btn-block" type="submit" value="Terima Pesanan">
+                                                        </form>
+
+                                                        <form class="col-6" action="<?php echo site_url('Tehkita/tolak_pesanan/' . $row['id_pesanan']) ?>">
+                                                            <input class="btn btn-danger btn-user btn-block" type="submit" value="Tolak Pesanan">
+                                                        </form>
+                                                    </div>
                                                 </center>
                                             </div>
                                         </div>
@@ -91,8 +132,7 @@
         </div>
     </div>
 
-    <script src="<?php echo base_url('asset/vendor/jquery/jquery.min.js') ?>"></script>
-    <script src="<?php echo base_url('asset/vendor/bootstrap/js/bootstrap.bundle.min.js') ?>"></script>
+    <script src="<?php echo base_url('asset/js/bootstrap.js') ?>"></script>
 </body>
 
 </html>
