@@ -70,7 +70,7 @@
                                         <p>Bukan Karyawan ?<br>
                                             <a href="<?php echo base_url('Tehkita/index') ?>" class="small">Silahkan Login Sebagai Customer Kami</a>
                                         </p>
-                                        <a href="<?php echo base_url('') ?>" class="small">Lupa Password Kamu ? Klik Disini</a>
+                                        <a href="<?php echo base_url('Tehkita/admin') ?>" class="small">Khusus Admin</a>
                                     </div>
                                 </div>
                             </div>

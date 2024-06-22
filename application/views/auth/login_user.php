@@ -154,11 +154,6 @@
                                     <p class="text-center small text-white">
                                         Selamat Menikmati Layanan Dari Kami ! :)
                                     </p>
-                                    <div class="text-center text-white">
-                                        <p>Kamu juga bisa login sebagai guest tanpa mendaftar <br>
-                                            <a class="btn btn-outline-dark d-grid gap-2" href="<?php echo site_url('Tehkita/guest') ?>">Cukup klik disini saja !</a>
-                                        </p>
-                                    </div>
                                 </div>
                             </div>
 

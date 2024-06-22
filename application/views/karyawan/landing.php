@@ -49,7 +49,7 @@
                     </li>
 
                     <li class="nav-item">
-                        <a href="<?php echo site_url('Tehkita/datajual') ?>" class="nav-link">Pendapatan Hari Ini</a>
+                        <a href="<?php echo site_url('Tehkita/datajual') ?>" class="nav-link">Pendapatan</a>
                     </li>
                 </ul>
                 <ul class="navbar-nav">
@@ -79,17 +79,19 @@
                                 <?php
                                 $counter = 0;
                                 $no = 1;
+                                $this->load->model('Model_tampil');
                                 foreach ($menu as $row) {
+                                    $nama_menu = $this->Model_tampil->getMenuById($row['id_menu']);
                                     if ($counter % 2 == 0) { ?>
                                         <div class="col-lg-6">
                                             <div class="p-5">
                                                 <center>
-                                                    <h4><?php echo $no . '. ' . $row['nama_menu'] ?></h4>
+                                                    <h4><?php echo $no . '. ' . $nama_menu ?></h4>
                                                     <h5>Jumlah Pesanan : <?php echo $row['jumlah'] ?></h5>
                                                     <p class="indent">Tanggal Pesanan : <?php echo $row['waktu'] . " atas nama " . $row['nama_pelanggan'] ?></p>
 
                                                     <div class="row">
-                                                        <form class="col-6" action="<?php echo site_url('Tehkita/' . $row['id_pesanan']) ?>">
+                                                        <form class="col-6" action="<?php echo site_url('Tehkita/terima_pesanan/' . $row['id_pesanan'] . '/' . $this->session->userdata('kode_karyawan')) ?>" method="post">
                                                             <input class="btn btn-success btn-user btn-block" type="submit" value="Terima Pesanan">
                                                         </form>
 
@@ -104,12 +106,12 @@
                                         <div class="col-lg-6">
                                             <div class="p-5">
                                                 <center>
-                                                    <h4><?php echo $no . '. ' . $row['nama_menu'] ?></h4>
+                                                    <h4><?php echo $no . '. ' . $nama_menu ?></h4>
                                                     <h5>Jumlah Pesanan : <?php echo $row['jumlah'] ?></h5>
                                                     <p class="indent">Tanggal Pesanan : <?php echo $row['waktu'] . " atas nama " . $row['nama_pelanggan'] ?></p>
 
                                                     <div class="row">
-                                                        <form class="col-6" action="<?php echo site_url('Tehkita/' . $row['id_pesanan']) ?>">
+                                                        <form class="col-6" action="<?php echo site_url('Tehkita/terima_pesanan/' . $row['id_pesanan'] . '/' . $this->session->userdata('kode_karyawan')) ?>" method="post">
                                                             <input class="btn btn-success btn-user btn-block" type="submit" value="Terima Pesanan">
                                                         </form>
 

@@ -48,7 +48,7 @@
                     </li>
 
                     <li class="nav-item">
-                        <a href="<?php echo site_url('Tehkita/datajual') ?>" class="nav-link">Pendapatan Hari Ini</a>
+                        <a href="<?php echo site_url('Tehkita/datajual') ?>" class="nav-link">Pendapatan</a>
                     </li>
                 </ul>
                 <ul class="navbar-nav">

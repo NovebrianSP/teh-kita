@@ -40,15 +40,11 @@
             <div class="collapse navbar-collapse">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a href="<?php echo site_url('') ?>" class="nav-link">Home</a>
+                        <a href="<?php echo site_url('Tehkita/customer') ?>" class="nav-link">Pesan Menu</a>
                     </li>
 
                     <li class="nav-item">
-                        <a href="<?php echo site_url('') ?>" class="nav-link">Ubah Data Menu</a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a href="<?php echo site_url('') ?>" class="nav-link">Pendapatan Hari Ini</a>
+                        <a href="<?php echo site_url('Tehkita/history_customer') ?>" class="nav-link">History Pemesanan Kamu</a>
                     </li>
                 </ul>
 
@@ -65,61 +61,113 @@
         <div class="container-fluid">
             <h1 class="text-center">Katalog Menu Kami</h1>
 
-            <div class="row">
-                <?php
-                $counter = 0;
-                $no = 1;
-                foreach ($menu as $row) {
-                    if ($counter % 2 == 0) { ?>
-                        <div class="col-lg-6">
-                            <div class="p-5">
-                                <center>
-                                    <h4><?php echo $no . '. ' . $row['nama_menu'] ?></h4>
-                                    <img src="<?php base_url('asset/upload/'.$row['foto_menu']) ?>" alt="" class="thumbnail">
-                                    <h5>Harga per porsi : <?php echo $row['harga_menu'] ?></h5>
-                                    <p class="indent">Kategori : <?php echo $row['kategori'] ?></p>
+            <?php
+            $menu_beverages = array_filter($menu, function ($row) {
+                return $row['kategori'] === 'Beverages';
+            });
 
-                                    <div class="row">
-                                        <form class="col-6" action="<?php echo site_url('Tehkita/' . $row['id_pesanan']) ?>">
-                                            <input class="btn btn-success btn-user btn-block" type="submit" value="Terima Pesanan">
-                                        </form>
+            $menu_food = array_filter($menu, function ($row) {
+                return $row['kategori'] === 'Food';
+            });
+            ?>
 
-                                        <form class="col-6" action="<?php echo site_url('Tehkita/tolak_pesanan' . $row['id_pesanan']) ?>">
-                                            <input class="btn btn-danger btn-user btn-block" type="submit" value="Tolak Pesanan">
-                                        </form>
-                                    </div>
-                                </center>
-                            </div>
-                        </div>
-                    <?php } else { ?>
-                        <div class="col-lg-6">
-                            <div class="p-5">
-                                <center>
-                                    <h4><?php echo $no . '. ' . $row['nama_menu'] ?></h4>
-                                    <h5>Jumlah Pesanan : <?php echo $row['jumlah'] ?></h5>
-                                    <p class="indent">Tanggal Pesanan : <?php echo $row['waktu'] . " atas nama " . $row['nama_pelanggan'] ?></p>
+            <div class="row mt-4">
+                <div class="col-md-6">
+                    <h3 class="text-center">Beverages</h3>
+                    <div class="table-responsive">
+                        <table class="table table-striped table-hover">
+                            <thead>
+                                <tr>
+                                    <th scope="col">No</th>
+                                    <th scope="col">Menu</th>
+                                    <th scope="col">Kategori</th>
+                                    <th scope="col">Pemesanan</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                $no = 0;
+                                foreach ($menu_beverages as $key => $beverage) : ?>
+                                    <tr>
+                                        <th scope="row"><?php echo $no + 1; ?></th>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <img src="<?php echo base_url('asset/upload/' . $beverage['foto_menu']); ?>" alt="<?php echo $beverage['nama_menu']; ?>" width="50" height="50" class="me-2">
+                                                <?php echo $beverage['nama_menu']; ?>
+                                            </div>
+                                        </td>
+                                        <td><?php echo $beverage['kategori']; ?></td>
+                                        <td>
+                                            <a href="javascript:void(0);" class="btn btn-success btn-sm pesan-menu" data-id="<?php echo $beverage['id_menu']; ?>" data-nama="<?php echo $beverage['nama_menu']; ?>">Pesan Disini</a>
+                                        </td>
+                                    </tr>
+                                <?php
+                                    $no++;
+                                endforeach; ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
 
-                                    <div class="row">
-                                        <form class="col-6" action="<?php echo site_url('Tehkita/' . $row['id_pesanan']) ?>">
-                                            <input class="btn btn-success btn-user btn-block" type="submit" value="Terima Pesanan">
-                                        </form>
-
-                                        <form class="col-6" action="<?php echo site_url('Tehkita/tolak_pesanan/' . $row['id_pesanan']) ?>">
-                                            <input class="btn btn-danger btn-user btn-block" type="submit" value="Tolak Pesanan">
-                                        </form>
-                                    </div>
-                                </center>
-                            </div>
-                        </div>
-                <?php }
-                    $counter++;
-                    $no++;
-                } ?>
+                <div class="col-md-6">
+                    <h3 class="text-center">Food</h3>
+                    <div class="table-responsive">
+                        <table class="table table-striped table-hover">
+                            <thead>
+                                <tr>
+                                    <th scope="col">No</th>
+                                    <th scope="col">Menu</th>
+                                    <th scope="col">Kategori</th>
+                                    <th scope="col">Pemesanan</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                $no = 0;
+                                foreach ($menu_food as $key => $food) : ?>
+                                    <tr>
+                                        <th scope="row"><?php echo $no + 1; ?></th>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <img src="<?php echo base_url('asset/upload/' . $food['foto_menu']); ?>" alt="<?php echo $food['nama_menu']; ?>" width="50" height="50" class="me-2">
+                                                <?php echo $food['nama_menu']; ?>
+                                            </div>
+                                        </td>
+                                        <td><?php echo $food['kategori']; ?></td>
+                                        <td>
+                                            <a href="javascript:void(0);" class="btn btn-success btn-sm pesan-menu" data-id="<?php echo $food['id_menu']; ?>" data-nama="<?php echo $food['nama_menu']; ?>">Pesan Disini</a>
+                                        </td>
+                                    </tr>
+                                <?php
+                                    $no++;
+                                endforeach; ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
     <script src="<?php echo base_url('asset/js/bootstrap.js') ?>"></script>
+    <script>
+        // Fungsi untuk menampilkan pop-up konfirmasi jumlah pesanan dengan nama menu
+        document.addEventListener("DOMContentLoaded", function() {
+            const pesanMenuButtons = document.querySelectorAll('.pesan-menu');
+
+            pesanMenuButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const idMenu = this.getAttribute('data-id');
+                    const namaMenu = this.getAttribute('data-nama');
+                    const jumlahPesanan = prompt(`Masukkan jumlah pesanan untuk ${namaMenu}:`, '1');
+
+                    if (jumlahPesanan != null && jumlahPesanan > 0) {
+                        window.location.href = "<?php echo site_url('Tehkita/pesan_menu/'); ?>" + idMenu + '/' + jumlahPesanan;
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 
 </html>

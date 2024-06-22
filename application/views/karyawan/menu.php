@@ -25,14 +25,20 @@
         }
 
         .img {
-            width: 10cm;
+            width: 4cm;
             /* Tentukan ukuran yang diinginkan */
-            height: 10cm;
+            height: 4cm;
             /* Tentukan ukuran yang diinginkan */
             object-fit: cover;
             /* Menyesuaikan gambar ke area yang ditentukan tanpa mengubah aspek rasio */
             object-position: center;
             /* Menyesuaikan posisi gambar */
+        }
+
+        .tabel {
+            padding-bottom: 3cm;
+            padding-left: 3cm;
+            padding-right: 3cm;
         }
     </style>
 </head>
@@ -59,7 +65,7 @@
                     </li>
 
                     <li class="nav-item">
-                        <a href="<?php echo site_url('Tehkita/datajual') ?>" class="nav-link">Pendapatan Hari Ini</a>
+                        <a href="<?php echo site_url('Tehkita/datajual') ?>" class="nav-link">Pendapatan</a>
                     </li>
                 </ul>
 
@@ -83,14 +89,14 @@
                             </center>
                         </div>
 
-                        <!-- <div class="row mt-4 p-4">
+                        <div class="tabel row mt-4">
                             <table class="table">
                                 <thead>
                                     <tr>
-                                        <th scope="col">No</th>
-                                        <th scope="col">Menu</th>
-                                        <th scope="col">Kategori</th>
-                                        <th scope="col">Manage</th>
+                                        <th scope="col" class="text-center">No</th>
+                                        <th scope="col" class="text-center">Menu</th>
+                                        <th scope="col" class="text-center">Kategori</th>
+                                        <th scope="col" class="text-center">Manage</th>
                                     </tr>
                                 </thead>
                                 <?php
@@ -98,28 +104,46 @@
                                 foreach ($menu as $row) { ?>
 
                                     <tbody>
-                                        <th scope="row"><?php echo $no ?></th>
-                                        <td><?php echo $row['nama_menu'] ?></td>
-                                        <td><?php echo $row['kategori'] ?></td>
-                                        <td>
-                                            <div class="row">
-                                                <form class="col-6 d-grid gap-2" action="<?php echo site_url('Tehkita/' . $row['nama_menu']) ?>">
-                                                    <input class="btn btn-info btn-user btn-block" type="submit" value="Edit Menu">
-                                                </form>
+                                        <tr>
+                                            <th scope="row"><?php echo $no ?></th>
+                                            <td style="max-width: 10cm;">
+                                                <div class="card shadow mb-3" style="max-width: 8cm;">
+                                                    <div class="row g-0">
+                                                        <div class="col-sm-6">
+                                                            <img class="img img-fluid rounded" src="<?php echo base_url('./asset/upload/' . $row['foto_menu']) ?>">
+                                                        </div>
 
-                                                <div class="col-6 d-grid gap-2">
-                                                    <a href="<?php echo site_url('Tehkita/hapusMenu/' . $row['nama_menu']) ?>" class="btn btn-warning btn-block">Hapus Menu</a>
+                                                        <div class="col-sm-6">
+                                                            <div class="card-body">
+                                                                <div class="card-title text-start"><?php echo $row['nama_menu'] ?></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </td>
-                                    </tbody>
-                            </table>
-                        <?php }
-                                $no++;
-                        ?>
-                        </div> -->
+                                            </td>
+                                            <td>
+                                                <p class="mt-5 text-center"><?php echo $row['kategori'] ?></p>
+                                            </td>
+                                            <td>
+                                                <div class="row">
+                                                    <form class="col-6 d-grid gap-2" action="<?php echo site_url('Tehkita/editMenu/'.$row['id_menu']) ?>">
+                                                        <input class="btn btn-info btn-user btn-block mt-5" type="submit" value="Edit Menu">
+                                                    </form>
 
-                        <div class="row mt-4">
+                                                    <div class="col-6 d-grid gap-2">
+                                                        <a href="<?php echo base_url('Tehkita/hapusMenu/'.$row['id_menu']) ?>" class="btn btn-warning btn-block mt-5">Hapus Menu</a>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                <?php $no++;
+                                }
+                                ?>
+                            </table>
+                        </div>
+
+                        <!-- <div class="row mt-4">
                             <?php
                             $counter = 0;
                             $no = 1;
@@ -140,8 +164,8 @@
                                                     </form>
 
                                                     <div class="col-6 d-grid gap-2">
-                                                        <a href="<?php echo base_url('Tehkita/hapusMenu/' . $kolom['nama_menu']) ?>" class="btn btn-warning btn-block">Hapus Menu</a>
-                                                   </div>
+                                                        <a href="<?php echo base_url('Tehkita/hapusMenu/' . $kolom['id_menu']) ?>" class="btn btn-warning btn-block">Hapus Menu</a>
+                                                    </div>
                                                 </div>
                                             </center>
                                         </div>
@@ -161,9 +185,9 @@
                                                         <input class="btn btn-info btn-user btn-block" type="submit" value="Edit Menu">
                                                     </form>
 
-                                                   <div class="col-6 d-grid gap-2">
-                                                        <a href="<?php echo site_url('Tehkita/hapusMenu/' . $kolom['nama_menu']) ?>" class="btn btn-warning btn-block">Hapus Menu</a>
-                                                   </div>
+                                                    <div class="col-6 d-grid gap-2">
+                                                        <a href="<?php echo site_url('Tehkita/hapusMenu/' . $kolom['id_menu']); ?>" onclick="return confirm('Apakah anda yakin ingin menghapus data ini ?')" class="btn btn-warning btn-block">Hapus Menu</a>
+                                                    </div>
                                                 </div>
                                             </center>
                                         </div>
@@ -178,9 +202,9 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 
-    <script src="<?php echo base_url('asset/js/bootstrap.js') ?>"></script>
+                        <script src="<?php echo base_url('asset/js/bootstrap.js') ?>"></script>
 </body>
 
 </html>
